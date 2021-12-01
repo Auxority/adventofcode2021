@@ -1,0 +1,20 @@
+{
+  "name": "advent-of-code",
+  "version": "1.0.0",
+  "description": "Advent of code 2021 - Auxority",
+  "type": "module",
+  "main": "build/index.js",
+  "scripts": {
+    "start": "tsc && node build/index.js"
+  },
+  "author": "Auxority",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^16.11.11",
+    "typescript": "^4.5.0-beta"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "node-fetch": "^3.1.0"
+  }
+}
