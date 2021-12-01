@@ -25,6 +25,8 @@ npm install
 8. Expand cookies, and copy the session value. Paste this session value in your .env file.
 
 # Usage
+Modify index.ts to your needs, or create a .ts file for each day, like I do.
+And run your code using the following command:
 ```
 npm start
 ```
