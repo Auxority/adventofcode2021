@@ -26,6 +26,7 @@ npm install
 
 # Usage
 Modify index.ts to your needs, or create a .ts file for each day, like I do.
+
 And run your code using the following command:
 ```
 npm start
