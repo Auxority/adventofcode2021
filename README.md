@@ -24,4 +24,7 @@ npm install
 
 8. Expand cookies, and copy the session value. Paste this session value in your .env file.
 
-9. Run npm start
+9. And to run the project use the following command.
+```
+npm start
+```
