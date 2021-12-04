@@ -6,7 +6,7 @@ type BingoInput = {
     numbersDrawn: number[];
     bingoCards: BingoCard[];
 }
-type FirstBingoResult = {
+type BingoResult = {
     numbersDrawn: number[];
     bingoCard: BingoCard;
 }
@@ -52,27 +52,13 @@ const readInput = async(): Promise<BingoInput> => {
     }
 }
 
-const findFirstBingo = (input: BingoInput): FirstBingoResult | void => {
-    const numbersDrawn: number[] = [];
-    for (let i = 0; i < input.numbersDrawn.length; i++) {
-        numbersDrawn.push(input.numbersDrawn[i]);
-        const bingoCard: BingoCard | undefined = input.bingoCards.find((bingoCard: BingoCard): boolean => isBingo(bingoCard, numbersDrawn));
-        if (bingoCard) {
-            return {
-                bingoCard,
-                numbersDrawn
-            };
-        }
-    }
-}
-
-const calculateFinalScore = (firstBingoResult: FirstBingoResult | void): number => {
-    if (!firstBingoResult) {
+const calculateFinalScore = (bingoResult: BingoResult | void): number => {
+    if (!bingoResult) {
         throw new Error("Could not find any valid bingo cards!");
     }
 
-    const bingoCard: BingoCard = firstBingoResult.bingoCard;
-    const numbersDrawn: number[] = firstBingoResult.numbersDrawn;
+    const bingoCard: BingoCard = bingoResult.bingoCard;
+    const numbersDrawn: number[] = bingoResult.numbersDrawn;
 
     const unmarkedNumbers: number[] = [];
     bingoCard.forEach((row: BingoRow): void => {
@@ -89,10 +75,60 @@ const calculateFinalScore = (firstBingoResult: FirstBingoResult | void): number 
     return sum * lastDrawn;
 }
 
-(async() => {
-    const input: BingoInput = await readInput();
-    const firstBingoResult: FirstBingoResult | void = findFirstBingo(input);
+const findFirstBingo = (input: BingoInput): BingoResult | void => {
+    const numbersDrawn: number[] = [];
+    for (let i = 0; i < input.numbersDrawn.length; i++) {
+        numbersDrawn.push(input.numbersDrawn[i]);
+        const bingoCard: BingoCard | undefined = input.bingoCards.find((currentBingoCard: BingoCard): boolean => isBingo(currentBingoCard, numbersDrawn));
+        if (bingoCard) {
+            return {
+                bingoCard: bingoCard,
+                numbersDrawn: numbersDrawn
+            };
+        }
+    }
+}
+
+const findLastBingo = (input: BingoInput): BingoResult | void => {
+    const numbersDrawn: number[] = [];
+    const foundBingoNumbers: number[] = [];
+    let lastBingo: BingoCard | unknown;
+    let lastNumbersDrawn: number[] = [];
+
+    for (let i = 0; i < input.numbersDrawn.length; i++) {
+        numbersDrawn.push(input.numbersDrawn[i]);
+        input.bingoCards.forEach((bingoCard: BingoCard, cardIndex: number) => {
+            if (foundBingoNumbers.find((foundBingoNumber: number): boolean => foundBingoNumber === cardIndex) === undefined && isBingo(bingoCard, numbersDrawn)) {
+                foundBingoNumbers.push(cardIndex);
+                lastNumbersDrawn = numbersDrawn.slice();
+                lastBingo = bingoCard;
+            }
+        });
+    }
+
+    return {
+        bingoCard: lastBingo as BingoCard,
+        numbersDrawn: lastNumbersDrawn
+    }
+}
+
+const part1 = (input: BingoInput): void => {
+    const firstBingoResult: BingoResult | void = findFirstBingo(input);
     const finalScore: number = calculateFinalScore(firstBingoResult);
 
     console.log(finalScore);
+}
+
+const part2 = (input: BingoInput): void => {
+    const lastBingoResult: BingoResult | void = findLastBingo(input);
+    const finalScore: number = calculateFinalScore(lastBingoResult);
+
+    console.log(finalScore);
+}
+
+(async() => {
+    const input: BingoInput = await readInput();
+
+    part1(input);
+    part2(input);
 })();
