@@ -134,7 +134,7 @@ function drawLine(diagram: Diagram, line: Line): void {
     } else if (isVerticalLine(line)) {
         drawVerticalLine(diagram, line);
     } else if (isDiagonalLine(line)) {
-        // drawDiagonalLine(diagram, line);
+        drawDiagonalLine(diagram, line);
     }
 }
 
