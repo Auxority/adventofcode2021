@@ -35,7 +35,8 @@ export default class AdventOfCode {
                 "referer": url
             }
         });
-        const input = await res.text();
+        const body = await res.text();
+        const input = body.trimEnd();
         await AdventOfCode.writeFileInput(adventDate, input);
         return input;
     }
