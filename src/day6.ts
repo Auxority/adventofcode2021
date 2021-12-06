@@ -1,4 +1,3 @@
-import fs from "fs";
 import AdventOfCode from "./AdventOfCode.js";
 
 function simulateDay(lanternFish: number[]): void {
@@ -19,4 +18,7 @@ function simulateDay(lanternFish: number[]): void {
         simulateDay(lanternFish);
     }
     console.log(lanternFish.length);
+    // read & write streams
+    // Maybe it's an idea to write to the end of a file
+    // And read the file line by line (maybe 1,000,000 fish per line)
 })();
