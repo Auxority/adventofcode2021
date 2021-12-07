@@ -1,1 +1,1 @@
-import "./day6.js";
+import "./day7.js";
