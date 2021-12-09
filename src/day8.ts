@@ -33,9 +33,13 @@ function handleEntry(entry: Entry) {
 
     const knownPatterns = getKnownDigits(signalPatterns);
 
+    // Decimal: 18
     const digit1 = knownPatterns[0];
+    // Decimal: 82
     const digit7 = knownPatterns[1];
+    // Decimal: 58
     const digit4 = knownPatterns[2];
+    // Decimal: 127
     const digit8 = knownPatterns[3];
 
     const segmentBD = patternSubtract(digit4, digit1);
