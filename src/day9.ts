@@ -96,7 +96,6 @@ function part2(grid: number[][]): void {
     for (let i = 0; i < height; i++) {
         for (let j = 0; j < width; j++) {
             if (isLowPoint(grid, i, j)) {
-                // replace with pushing a 0 instead of grid[i][j] later on. Debugging purposes rn.
                 basins.push(floodFill(grid, i, j, [{y: i, x: j}]));
             }
         }
